@@ -81,7 +81,7 @@ if freelo_hours > 0 and hourly_income > 0:
     st.markdown(f"\n\n### ***Por este freelo deberías cobrar como mínimo: S/. {min_freelo_price:.2f}***\n\n")
 
     # Additional comment about minimum price
-    st.markdown("\n*Ten en cuenta que este es un valor referencial MINIMO. Sugerimos que establezcas tu precio tomando también en cuenta tu experiencia y el valor que le generas al cliente*\n\n")
+    st.markdown("\n*Ten en cuenta que este es un valor referencial MINIMO. Sugiero que establezcas tu precio tomando también en cuenta tu experiencia y el valor que le generas al cliente*\n\n")
 
 # Pie Chart
 st.subheader("\n\nDistribución de ingresos")
