@@ -35,7 +35,7 @@ if submit_button:
 if not st.session_state.expenses.empty:
     # Clean the DataFrame by resetting index and removing any extra columns
     st.session_state.expenses = st.session_state.expenses.loc[:, ["N°", "Nombre de gasto", "Valor"]]
-    st.dataframe(st.session_state.expenses, use_container_width=True)
+    st.dataframe(st.session_state.expenses, use_container_width=True, hide_index=True)
 
 # Button to clear all expenses, placed outside the form and only shown if there are expenses
 if len(st.session_state.expenses) > 0:
