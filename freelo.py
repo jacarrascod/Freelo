@@ -18,10 +18,6 @@ def add_expense(name, value):
         new_row = {"N°": len(st.session_state.expenses) + 1, "Nombre de gasto": name, "Valor": value}
         st.session_state.expenses = pd.concat([st.session_state.expenses, pd.DataFrame([new_row])], ignore_index=True)
 
-# Function to clear all expenses
-def clear_expenses():
-    st.session_state.expenses = pd.DataFrame(columns=["N°", "Nombre de gasto", "Valor"])
-
 # Form to add expenses
 with st.form(key="expense_form"):
     expense_name = st.text_input("Nombre del gasto")
@@ -33,7 +29,6 @@ if submit_button:
 
 # Display expenses with an index column starting from 1
 if not st.session_state.expenses.empty:
-    # Clean the DataFrame by resetting index and removing any extra columns
     st.session_state.expenses = st.session_state.expenses.loc[:, ["N°", "Nombre de gasto", "Valor"]]
     st.dataframe(st.session_state.expenses, use_container_width=True, hide_index=True)
 
@@ -41,10 +36,12 @@ if not st.session_state.expenses.empty:
 if len(st.session_state.expenses) > 0:
     col1, col2 = st.columns([3, 1])
     with col2:
-        clear_button = st.button("Limpiar")
+        clear_button = st.button("Limpiar", key="clear_button")
     
+    # Clear expenses immediately if the button is clicked
     if clear_button:
-        clear_expenses()
+        st.session_state.expenses = pd.DataFrame(columns=["N°", "Nombre de gasto", "Valor"])
+        st.rerun()  # Rerun the app to reflect the cleared table
 
 # Calculate total expenses
 total_expenses = st.session_state.expenses["Valor"].sum()
@@ -81,7 +78,7 @@ if freelo_hours > 0 and hourly_income > 0:
     st.markdown(f"\n\n### ***Por este freelo deberías cobrar como mínimo: S/. {min_freelo_price:.2f}***\n\n")
 
     # Additional comment about minimum price
-    st.markdown("\n*Ten en cuenta que este es un valor referencial MINIMO. Sugiero que establezcas tu precio tomando también en cuenta tu experiencia y el valor que le generas al cliente*\n\n")
+    st.markdown("\n*Ten en cuenta que este es un valor referencial MINIMO. Sugerimos que establezcas tu precio tomando también en cuenta tu experiencia y el valor que le generas al cliente*\n\n")
 
 # Pie Chart
 st.subheader("\n\nDistribución de ingresos")
